@@ -1,0 +1,31 @@
+service: lambda-provided-al2-arm64
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: provided.al2
+  architecture: arm64
+  region: ap-southeast-1
+
+package:
+  individually: true
+
+functions:
+  hello:
+    handler: bin/hello
+    package:
+      artifact: bin/hello.zip
+    events:
+      - httpApi:
+          path: /hello
+          method: get
+    
+  world:
+    handler: bin/world
+    package:
+      artifact: bin/world.zip
+    events:
+      - httpApi:
+          path: /world
+          method: get
